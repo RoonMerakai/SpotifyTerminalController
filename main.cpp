@@ -105,25 +105,25 @@ void nowPlaying() {
     }
 }
 
-// Pause playback
+// Pauses whatever is currently playing on Spotify
 void pause() {
     spotifyPut("https://api.spotify.com/v1/me/player/pause");
     std::cout << " Paused.\n";
 }
 
-// Resume playback
+// Resumes playback on the active Spotify device
 void play() {
     spotifyPut("https://api.spotify.com/v1/me/player/play");
     std::cout << " Playing.\n";
 }
 
-// Skip to next track
+// Tells Spotify to jump to the next track in the queue
 void skipNext() {
     spotifyPost("https://api.spotify.com/v1/me/player/next");
     std::cout << " Skipped to next track.\n";
 }
 
-// Skip to previous track
+// Goes back to the previous track
 void skipPrev() {
     spotifyPost("https://api.spotify.com/v1/me/player/previous");
     std::cout << " Went back to previous track.\n";
