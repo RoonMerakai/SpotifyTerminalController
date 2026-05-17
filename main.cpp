@@ -12,13 +12,15 @@ const std::string REDIRECT_URI = "http://127.0.0.1:3000";
 
 std::string access_token = "";
 
-// Callback function for curl to store response
+// Stores the response from Spotify's API into a string
+// curl needs this to capture what comes back from the server
 size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* s) {
     s->append((char*)contents, size * nmemb);
     return size * nmemb;
 }
 
-// Make a GET request to Spotify API
+// Sends a GET request to Spotify and returns the response as a string
+// Used for reading data like currently playing song
 std::string spotifyGet(const std::string& url) {
     CURL* curl = curl_easy_init();
     std::string response;
@@ -37,7 +39,8 @@ std::string spotifyGet(const std::string& url) {
     return response;
 }
 
-// Make a PUT request (for play/pause/skip)
+// Sends a PUT request, Spotify uses PUT for controlling playback
+// play and pause both use this
 void spotifyPut(const std::string& url, const std::string& body = "") {
     CURL* curl = curl_easy_init();
     std::string response;
@@ -62,7 +65,7 @@ void spotifyPut(const std::string& url, const std::string& body = "") {
     }
 }
 
-// Make a POST request (for skip next)
+// Sends a POST request, Spotify uses POST for skipping tracks
 void spotifyPost(const std::string& url) {
     CURL* curl = curl_easy_init();
     std::string response;
@@ -83,7 +86,7 @@ void spotifyPost(const std::string& url) {
     }
 }
 
-// Show currently playing song
+// Asks Spotify what is currently playing and prints it
 void nowPlaying() {
     std::string response = spotifyGet("https://api.spotify.com/v1/me/player/currently-playing");
     if (response.empty()) {
@@ -126,7 +129,7 @@ void skipPrev() {
     std::cout << " Went back to previous track.\n";
 }
 
-// Get the auth URL for the user to visit
+// Builds the Spotify login URL and prints it for the user to open
 void printAuthUrl() {
     std::string url = "https://accounts.spotify.com/authorize"
         "?client_id=" + CLIENT_ID +
@@ -138,7 +141,7 @@ void printAuthUrl() {
     std::cout << "Copy the 'code' value from the URL and paste it here: ";
 }
 
-// Exchange auth code for access token
+// Trades the auth code for an access token we can use in API calls
 bool getAccessToken(const std::string& code) {
     CURL* curl = curl_easy_init();
     std::string response;
