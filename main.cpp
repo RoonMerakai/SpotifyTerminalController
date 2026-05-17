@@ -6,8 +6,8 @@
 using json = nlohmann::json;
 
 // My Spotify credentials
-const std::string CLIENT_ID = "319d0109ff6e4c3ebe1d9597484ae15b";
-const std::string CLIENT_SECRET = "ee1d39e9a4314f9589e3c1a1cce4fed8";
+const std::string CLIENT_ID = "YOUR_CLIENT_ID";
+const std::string CLIENT_SECRET = "YOUR_CLIENT_SECRET";
 const std::string REDIRECT_URI = "http://127.0.0.1:3000";
 
 std::string access_token = "";
